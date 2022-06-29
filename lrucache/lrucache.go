@@ -90,6 +90,11 @@ func (l *LRUCache) evict() {
 }
 
 func (l *LRUCache) Write(k, v string) {
+	if n, ok := l.cache[k]; ok {
+		n.entry.v = v
+		l.list.moveFront(n)
+		return
+	}
 	if uint(len(l.cache)) == l.size {
 		l.evict()
 	}
