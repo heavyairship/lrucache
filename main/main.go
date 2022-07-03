@@ -13,6 +13,10 @@ type Cache interface {
 }
 
 func test(c Cache) {
+
+}
+func main() {
+	c := lrucache.NewLRUCache(10)
 	for i := 0; i < 100; i++ {
 		c.Write(fmt.Sprintf("%d", i), fmt.Sprintf("%d", i))
 		c.Read("0")
@@ -21,7 +25,4 @@ func test(c Cache) {
 	c.Print() // Should have 94, 0, 99, 98, 97, 96, 95, 93, 92, 91
 	c.Write("100", "100")
 	c.Print() // Should have 100, 94, 0, 99, 98, 97, 96, 95, 93, 92
-}
-func main() {
-	test(lrucache.NewLRUCache(10))
 }
